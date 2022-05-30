@@ -19,8 +19,8 @@
 
         header,
         footer {
-            width: 100vw;
-            height: 334px;
+            width: 100%;
+            height: 150px;
             background-color: #a8dee0;
             background-image: linear-gradient(to bottom right, #a8dee0, #f9e2ae);
         }
@@ -33,6 +33,7 @@
 
         .flex img {
             display: block;
+            height: 100px;
             margin: calc((334px - 284px)/2);
         }
 
@@ -110,7 +111,7 @@
         }
 
         //set position at the top of the page
-        document.documentElement.scrollTop = 0
+        document.documentElement.scrollTop = 1
 
         document.addEventListener("contextmenu", function (event) {
             event.preventDefault();
