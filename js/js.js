@@ -7,7 +7,7 @@ xml.onreadystatechange = function () {
         }
     }
 }
-url = 'file.txt';
+url = '../file.txt';
 xml.open("GET", url, "false");
 xml.send();
 
@@ -17,7 +17,7 @@ mainDiv.innerHTML = ""
 var runningVideo = -1
 var scrollTimer = -1
 var scrooling = true
-var vid 
+var vid
 
 window.onload = function () {
     listIdVideo = shuffle(listIdVideo)
@@ -80,9 +80,10 @@ document.onscroll = function () {
 
 function scrollFinished() {
     scrooling = false
-    if(runningVideo == -1) {
+    if (runningVideo == -1) {
         runningVideo += 1
     }
+
     vid[runningVideo].play()
 }
 
