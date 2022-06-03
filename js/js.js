@@ -1,85 +1,44 @@
-var listIdVideo = new Array()
+// var listIdVideo = new Array()
+const listIdVideo =
+    ['15KzKrG8R859Len0IfAv2Mnw99vJcLFb1', '1QKI7xpEzo4eO-UhuApZQ1cGi6dNFWOK9',
+        '1bF4-njza7-UOdUp6mdGS6yp_tT5NcoF4', '10Nooc2YAcDEFyR2CKToBoiOyM3SLMY2J',
+        '1wl1kOmZW0m4EH5tHzR2URH5l2iIcZ_T5', '1ygGLk5KZFbfsA__nruFV0ag1oJWu0ALO',
+        '1SeDtEBoHgUnHnSrEkKlbWOwDPpOpHCj5', '1ioERH0Tr6Xk_jAUVc3y6wagOD2dMpq2B',
+        '1A5ogG7RNyDPbwSYji4TqbyoRdVYXC7ZS', '1PJV_j97wf6Ec1Adstd-h5-ySrTxp_ETq',
+        '17G7ruTVCgOg5ukcMYnJWe6KEwG58euTH']
 
-//get data from txt file and assign it to listIdVideo
-xml = new XMLHttpRequest();
-xml.onreadystatechange = function () {
-    if (xml.readyState == 4) {
-        if (xml.status === 200 || xml.status == 0) {
-            listIdVideo = xml.responseText.split("\r\n")
-        }
-    }
-}
-url = 'file.txt';
-xml.open("GET", url, "false");
-xml.send();
+// //get data from txt file and assign it to listIdVideo
+// xml = new XMLHttpRequest();
+// xml.onreadystatechange = function () {
+//     if (xml.readyState == 4) {
+//         if (xml.status === 200 || xml.status == 0) {
+//             listIdVideo = xml.responseText.split("\r\n")
+//         }
+//     }
+// }
+// url = 'file.txt';
+// xml.open("GET", url, "false");
+// xml.send();
 
 
 var mainDiv = document.getElementById('main')
 mainDiv.innerHTML = ""
-var runningVideo = -1
+var runningVideo = 0
 var scrollTimer = -1
 var scrooling = true
 var vid
 var videoWaiting = 5
+const scrHeight = document.documentElement.clientHeight
 
 window.onload = function () {
     listIdVideo = shuffle(listIdVideo)
 
     //load video
-    for (let i = 0; i <= videoWaiting; i++) {
+    for (let i = 0; i < listIdVideo.length; i++) {
         loadVideo(i)
     }
 
-    //set position at the top of the page
-    document.body.scrollTop = 1
-    document.documentElement.scrollTop = 1
-    // window.scrollTo(0, 1);
-
-    //hehe
-    document.getElementsByClassName('disclaimer')[0].style.display = 'none'
-}
-
-document.onscroll = function () {
-    if (!scrooling) {
-
-        scrooling = true
-        scrTop = document.documentElement.scrollTop
-        scrHeight = document.documentElement.clientHeight
-        vid = document.getElementsByClassName('myVideo')
-
-        if (runningVideo >= 0) {
-            vid[runningVideo].pause()
-            vidTop = vid[runningVideo].offsetTop
-
-            if (scrTop > (vidTop - 100 - scrHeight * 0.05)) {
-                if (runningVideo < vid.length - 1) {
-                    runningVideo += 1
-                }
-
-                //load new video
-                if (vid.length - runningVideo <= videoWaiting) {
-                    loadVideo(vid.length)
-                }
-
-            } else if (scrTop < (vidTop - 100 - scrHeight * 0.05)) {
-                runningVideo -= 1
-            }
-            vidTopNext = vid[runningVideo].offsetTop
-
-            window.scrollTo(0, vidTopNext - 100 - scrHeight * 0.05);
-            // document.documentElement.scrollTop = vidTop - 100 - scrHeight * 0.05
-            // document.body.scrollTop = vidTop - 100 - scrHeight * 0.05
-        }
-
-        console.clear()
-        console.log(runningVideo)
-    }
-
-    if (scrollTimer != -1) {
-        clearTimeout(scrollTimer)
-    }
-
-    scrollTimer = setTimeout(scrollFinished, 40);
+    scrollFinished()
 }
 
 //disable right click
@@ -101,19 +60,6 @@ document.onkeyup = function (e) {
         vid = document.getElementsByClassName('myVideo')
         vid[runningVideo].requestFullscreen()
     }
-}
-
-function scrollFinished() {
-    vid = document.getElementsByClassName('myVideo')
-    scrooling = false
-    if (runningVideo == -1) {
-        runningVideo += 1
-    }
-    //play video
-    if (runningVideo < vid.length - 1) {
-        vid[runningVideo].currentTime = 0;
-    }
-    vid[runningVideo].play()
 }
 
 function loadVideo(num) {
