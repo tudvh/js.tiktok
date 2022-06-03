@@ -8,32 +8,46 @@
     <title>Document</title>
 </head>
 
-<body>
+<body onload="get_doc('1-0giOPh6xQKJpUp94_6Gbr4zM04B9CvV')">
     <div id="hh" style="height:2000px">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo fugiat veniam, harum enim praesentium possimus
-        voluptas vitae, rem eos ab, pariatur aut voluptatum saepe beatae similique. Eum accusamus porro consequatur.
+        
     </div>
+
+
+
+
     <script>
-        h = document.getElementsByClassName('body')
-        h[0].scrollTop = 1000
+        function get_doc(id) {
+
+            const url = 'https://drive.google.com/uc?export=adownlod&id=1-0giOPh6xQKJpUp94_6Gbr4zM04B9CvV'
+            if (self.fetch) {
+                var setHeaders = new Headers();
+                setHeaders.append('Authorization', 'Bearer ' + authToken.access_token);
+                setHeaders.append('Content-Type', mime);
+
+                var setOptions = {
+                    method: 'GET',
+                    headers: setHeaders
+                };
+                fetch(url, setOptions)
+                    .then(response => {
+                        if (response.ok) {
+                            var reader = response.body.getReader();
+                            var decoder = new TextDecoder();
+                            reader.read().then(function (result) {
+                                var data = {}
+                                data = decoder.decode(result.value, { stream: !result.done });
+                                console.log(data);
+                            });
+                        }
+                        else {
+                            console.log("Response wast not ok");
+                        }
+                    }).catch(error => {
+                        console.log("There is an error " + error.message);
+                    });
+            }
+        }
     </script>
 </body>
 

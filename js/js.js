@@ -1,4 +1,6 @@
-var listIdVideo = []
+var listIdVideo = new Array()
+
+//get data from txt file and assign it to listIdVideo
 xml = new XMLHttpRequest();
 xml.onreadystatechange = function () {
     if (xml.readyState == 4) {
@@ -7,7 +9,7 @@ xml.onreadystatechange = function () {
         }
     }
 }
-url = '../file.txt';
+url = 'file.txt';
 xml.open("GET", url, "false");
 xml.send();
 
@@ -18,35 +20,26 @@ var runningVideo = -1
 var scrollTimer = -1
 var scrooling = true
 var vid
+var videoWaiting = 5
 
 window.onload = function () {
     listIdVideo = shuffle(listIdVideo)
 
-    loadVideo(listIdVideo, 0)
-    loadVideo(listIdVideo, 1)
-    loadVideo(listIdVideo, 2)
-    loadVideo(listIdVideo, 3)
-    loadVideo(listIdVideo, 4)
-    loadVideo(listIdVideo, 5)
-    loadVideo(listIdVideo, 6)
-    loadVideo(listIdVideo, 7)
-    loadVideo(listIdVideo, 8)
-    loadVideo(listIdVideo, 9)
-    loadVideo(listIdVideo, 10)
+    //load video
+    for (let i = 0; i <= videoWaiting; i++) {
+        loadVideo(i)
+    }
 
     //set position at the top of the page
     document.body.scrollTop = 1
     document.documentElement.scrollTop = 1
     // window.scrollTo(0, 1);
+
+    //hehe
+    document.getElementsByClassName('disclaimer')[0].style.display = 'none'
 }
 
-document.addEventListener("contextmenu", function (event) {
-    event.preventDefault();
-}, false);
-
 document.onscroll = function () {
-    console.clear()
-
     if (!scrooling) {
 
         scrooling = true
@@ -59,7 +52,15 @@ document.onscroll = function () {
             vidTop = vid[runningVideo].offsetTop
 
             if (scrTop > (vidTop - 100 - scrHeight * 0.05)) {
-                runningVideo += 1
+                if (runningVideo < vid.length - 1) {
+                    runningVideo += 1
+                }
+
+                //load new video
+                if (vid.length - runningVideo <= videoWaiting) {
+                    loadVideo(vid.length)
+                }
+
             } else if (scrTop < (vidTop - 100 - scrHeight * 0.05)) {
                 runningVideo -= 1
             }
@@ -69,31 +70,59 @@ document.onscroll = function () {
             // document.documentElement.scrollTop = vidTop - 100 - scrHeight * 0.05
             // document.body.scrollTop = vidTop - 100 - scrHeight * 0.05
         }
+
+        console.clear()
+        console.log(runningVideo)
     }
 
     if (scrollTimer != -1) {
         clearTimeout(scrollTimer)
     }
 
-    scrollTimer = setTimeout(scrollFinished, 50);
+    scrollTimer = setTimeout(scrollFinished, 40);
+}
+
+//disable right click
+document.oncontextmenu = function (e) {
+    e.preventDefault()
+}
+
+//disable keydown space
+document.onkeydown = function (e) {
+    if (e.code == "Space") {
+        e.preventDefault()
+    }
+}
+
+document.onkeyup = function (e) {
+    if (e.code == "Space") {
+        playPauseVideo(runningVideo)
+    } else if (e.code == "KeyF") {
+        vid = document.getElementsByClassName('myVideo')
+        vid[runningVideo].requestFullscreen()
+    }
 }
 
 function scrollFinished() {
+    vid = document.getElementsByClassName('myVideo')
     scrooling = false
     if (runningVideo == -1) {
         runningVideo += 1
     }
-
+    //play video
+    if (runningVideo < vid.length - 1) {
+        vid[runningVideo].currentTime = 0;
+    }
     vid[runningVideo].play()
 }
 
-function loadVideo(list, num) {
-    if (list.length > num) {
+function loadVideo(num) {
+    if (listIdVideo.length > num) {
         mainDiv.innerHTML += '<div class="videoBox"> '
             + '<video tabindex="-1" class="myVideo" id="myVideo' + num + '" '
-            + 'onclick="playPauseVideo(' + num + ')" data-no-fullscreen="true" '
-            + 'controlslist="nodownload" loop '
-            + 'src="https://drive.google.com/uc?export=adownlod&id=' + list[num] + '" '
+            + 'data-no-fullscreen="true" '
+            + 'controlslist="nodownload" loop controls '
+            + 'src="https://drive.google.com/uc?export=adownlod&id=' + listIdVideo[num] + '" '
             + '</video> '
             + '</div> '
     }
