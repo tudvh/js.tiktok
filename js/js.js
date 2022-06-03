@@ -31,7 +31,7 @@ var videoWaiting = 5
 const scrHeight = document.documentElement.clientHeight
 
 window.onload = function () {
-    listIdVideo = shuffle(listIdVideo)
+    shuffle(listIdVideo)
 
     //load video
     for (let i = 0; i < listIdVideo.length; i++) {
