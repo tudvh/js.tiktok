@@ -9,18 +9,30 @@
 </head>
 
 <body>
-    <div id="hh" style="height:2000px">
-
+    <div id="main">
+        <video controls loop class="myVideo">
+            <source src="https://drive.google.com/uc?export=adownlod&id=1wl1kOmZW0m4EH5tHzR2URH5l2iIcZ_T5">
+        </video>
+        <video controls loop class="myVideo">
+            <source src="https://drive.google.com/uc?export=adownlod&id=1wl1kOmZW0m4EH5tHzR2URH5l2iIcZ_T5">
+        </video>
     </div>
 
 
 
-
     <script>
-        setTimeout(function () {
-            a = 1
-            console.log(a)
-        }, 1000)
+        var video = document.getElementsByClassName("myVideo");
+
+        function myfunction() {
+            alert('load xong roi ne')
+        }
+
+        document.onclick = function () {
+            mainDiv = document.getElementById('main')
+            mainDiv.innerHTML += '<video controls loop class="myVideo"> '
+                + '<source src="https://drive.google.com/uc?export=adownlod&id=1wl1kOmZW0m4EH5tHzR2URH5l2iIcZ_T5"> '
+                + '</video>'
+        }
     </script>
 </body>
 

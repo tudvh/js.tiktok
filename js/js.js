@@ -34,11 +34,14 @@ window.onload = function () {
     shuffle(listIdVideo)
 
     //load video
-    for (let i = 0; i < listIdVideo.length; i++) {
+    for (let i = 0; i < videoWaiting; i++) {
         loadVideo(i)
     }
 
     scrollFinished()
+
+    //set size video box
+    setSizeVideo()
 }
 
 //disable right click
@@ -62,14 +65,26 @@ document.onkeyup = function (e) {
     }
 }
 
+function setSizeVideo() {
+    vid = document.getElementsByClassName('videoBox')
+    vidHeight = vid[0].offsetHeight
+    vidWidth = vidHeight * 9 / 16
+
+    for (let j = 0; j < vid.length; j++) {
+        vid[j].style.width = vidWidth + 'px'
+    }
+}
+
 function loadVideo(num) {
     if (listIdVideo.length > num) {
-        mainDiv.innerHTML += '<div class="videoBox"> '
+        mainDiv.innerHTML += '<div class="flex"> '
+            + '<div class="videoBox"> '
             + '<video tabindex="-1" class="myVideo" id="myVideo' + num + '" '
             + 'data-no-fullscreen="true" '
             + 'controlslist="nodownload" loop controls '
             + 'src="https://drive.google.com/uc?export=adownlod&id=' + listIdVideo[num] + '" '
             + '</video> '
+            + '</div> '
             + '</div> '
     }
 }

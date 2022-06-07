@@ -4,11 +4,16 @@ function scrollFinished() {
     //play video
     if (runningVideo < vid.length && runningVideo >= 0) {
         vidTop = vid[runningVideo].offsetTop
-        window.scrollTo(0, vidTop - 100 - scrHeight * 0.05);
+        window.scrollTo(0, vidTop - 80 - scrHeight * 0.07);
 
         vid[runningVideo].currentTime = 0;
         vid[runningVideo].play()
     }
+
+    //show the currently playing video and the total video to the console
+    console.clear()
+    console.log('running: ' + (runningVideo + 1))
+    console.log('total: ' + vid.length)
 
     setTimeout(function () {
         scrooling = false
@@ -19,7 +24,7 @@ function scrollDown() {
     vid = document.getElementsByClassName('myVideo')
 
     //get current video playing
-    runningVideo = runningVideo > 0 ? runningVideo : 0    
+    runningVideo = runningVideo > 0 ? runningVideo : 0
 
     //stop current video
     if (runningVideo < vid.length - 1) {
@@ -29,8 +34,11 @@ function scrollDown() {
     runningVideo = runningVideo + 1
 
     //load new video
-    if (vid.length - runningVideo <= videoWaiting) {
-        loadVideo(vid.length)
+    if (runningVideo == vid.length - 1) {
+        for (let i = runningVideo + 1; i <= runningVideo + videoWaiting; i++) {
+            loadVideo(i)
+        }
+        setSizeVideo()
     }
 
     if (scrollTimer != -1) {
@@ -59,7 +67,7 @@ function scrollUp() {
 }
 
 function preventDefault(e) {
-    if (!scrooling) {        
+    if (!scrooling) {
         if (e.deltaY > 0 || e.keyCode == 40) {
             scrooling = true
             e.preventDefault();
@@ -70,10 +78,6 @@ function preventDefault(e) {
             scrollUp()
         }
     }
-}
-
-function disableScrollMobile(e) {
-    e.preventDefault()
 }
 
 // modern Chrome requires { passive: false } when adding event
@@ -90,7 +94,7 @@ var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewh
 //catch events scroll
 window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
 window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
-window.addEventListener('touchmove', disableScrollMobile, wheelOpt); // mobile
+// window.addEventListener('touchmove', scrollMobile, wheelOpt); // mobile
 window.addEventListener('keydown', preventDefault, false);
 
 var touchStartY = 0
