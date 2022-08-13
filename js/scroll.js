@@ -4,10 +4,12 @@ function scrollFinished() {
     //play video
     if (runningVideo < vid.length && runningVideo >= 0) {
         vidTop = vid[runningVideo].offsetTop
-        window.scrollTo(0, vidTop - 80 - scrHeight * 0.05);
 
-        vid[runningVideo].currentTime = 0;
+        window.scrollTo(0, vidTop - 80 - scrHeight * 0.05)
+
+        vid[runningVideo].currentTime = 0
         vid[runningVideo].play()
+
     }
 
     //show the currently playing video and the total video to the console
@@ -17,6 +19,13 @@ function scrollFinished() {
 
     setTimeout(function () {
         scrooling = false
+
+        //load new video
+        if (runningVideo > vid.length - 5) {
+            for (let i = vid.length; i <= runningVideo + videoWaiting; i++) {
+                loadVideo(i)
+            }
+        }
     }, 500)
 }
 
@@ -31,15 +40,7 @@ function scrollDown() {
         vid[runningVideo].pause()
     }
 
-    runningVideo = runningVideo + 1
-
-    //load new video
-    if (runningVideo == vid.length - 1) {
-        for (let i = runningVideo + 1; i <= runningVideo + videoWaiting; i++) {
-            loadVideo(i)
-        }
-        setSizeVideo()
-    }
+    runningVideo += 1
 
     if (scrollTimer != -1) {
         clearTimeout(scrollTimer)

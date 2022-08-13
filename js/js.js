@@ -21,7 +21,7 @@ var runningVideo = 0
 var scrollTimer = -1
 var scrooling = true
 var vid
-var videoWaiting = 5
+var videoWaiting = 10
 const scrHeight = document.documentElement.clientHeight
 
 window.onload = function () {
@@ -35,13 +35,10 @@ window.onload = function () {
 
         scrollFinished()
 
-        //set size video box
-        setSizeVideo()
-
-        //ads
-        ads = document.getElementsByTagName('div')
-        ads[ads.length - 2].removeAttribute('style')
-        ads[ads.length - 2].classList.add('hidden')
+        // //ads
+        // ads = document.getElementsByTagName('div')
+        // ads[ads.length - 2].removeAttribute('style')
+        // ads[ads.length - 2].classList.add('hidden')
     }, 1000)
 }
 
@@ -66,14 +63,13 @@ document.onkeyup = function (e) {
     }
 }
 
-function setSizeVideo() {
+function setSizeVideo(num) {
     vid = document.getElementsByClassName('videoBox')
+
     vidHeight = vid[0].offsetHeight
     vidWidth = vidHeight * 1080 / 1918
 
-    for (let j = 0; j < vid.length; j++) {
-        vid[j].style.width = vidWidth + 'px'
-    }
+    vid[num].style.width = vidWidth + 'px'
 }
 
 function loadVideo(num) {
@@ -87,6 +83,8 @@ function loadVideo(num) {
             + '</video> '
             + '</div> '
             + '</div> '
+
+        setSizeVideo(num)
     }
 }
 
