@@ -1,24 +1,18 @@
-// var listIdVideo = new Array()
-var listIdVideo =
-    ['15KzKrG8R859Len0IfAv2Mnw99vJcLFb1', '1QKI7xpEzo4eO-UhuApZQ1cGi6dNFWOK9',
-        '1bF4-njza7-UOdUp6mdGS6yp_tT5NcoF4', '10Nooc2YAcDEFyR2CKToBoiOyM3SLMY2J',
-        '1wl1kOmZW0m4EH5tHzR2URH5l2iIcZ_T5', '1ygGLk5KZFbfsA__nruFV0ag1oJWu0ALO',
-        '1SeDtEBoHgUnHnSrEkKlbWOwDPpOpHCj5', '1ioERH0Tr6Xk_jAUVc3y6wagOD2dMpq2B',
-        '1A5ogG7RNyDPbwSYji4TqbyoRdVYXC7ZS', '1PJV_j97wf6Ec1Adstd-h5-ySrTxp_ETq',
-        '17G7ruTVCgOg5ukcMYnJWe6KEwG58euTH']
+//959 la bat dau thang 9
+var listIdVideo = new Array()
 
-// //get data from txt file and assign it to listIdVideo
-// xml = new XMLHttpRequest();
-// xml.onreadystatechange = function () {
-//     if (xml.readyState == 4) {
-//         if (xml.status === 200 || xml.status == 0) {
-//             listIdVideo = xml.responseText.split("\r\n")
-//         }
-//     }
-// }
-// url = 'file.txt';
-// xml.open("GET", url, "false");
-// xml.send();
+//get data from txt file and assign it to listIdVideo
+xml = new XMLHttpRequest();
+xml.onreadystatechange = function () {
+    if (xml.readyState == 4) {
+        if (xml.status === 200 || xml.status == 0) {
+            listIdVideo = xml.responseText.split("\r\n")
+        }
+    }
+}
+url = 'file.txt';
+xml.open("GET", url, "false");
+xml.send();
 
 
 var mainDiv = document.getElementById('main')
@@ -33,15 +27,22 @@ const scrHeight = document.documentElement.clientHeight
 window.onload = function () {
     shuffle(listIdVideo)
 
-    //load video
-    for (let i = 0; i < videoWaiting; i++) {
-        loadVideo(i)
-    }
+    setTimeout(function () {
+        //load video
+        for (let i = 0; i < videoWaiting; i++) {
+            loadVideo(i)
+        }
 
-    scrollFinished()
+        scrollFinished()
 
-    //set size video box
-    setSizeVideo()
+        //set size video box
+        setSizeVideo()
+
+        //ads
+        ads = document.getElementsByTagName('div')
+        ads[ads.length - 2].removeAttribute('style')
+        ads[ads.length - 2].classList.add('hidden')
+    }, 1000)
 }
 
 //disable right click
@@ -68,7 +69,7 @@ document.onkeyup = function (e) {
 function setSizeVideo() {
     vid = document.getElementsByClassName('videoBox')
     vidHeight = vid[0].offsetHeight
-    vidWidth = vidHeight * 9 / 16
+    vidWidth = vidHeight * 1080 / 1918
 
     for (let j = 0; j < vid.length; j++) {
         vid[j].style.width = vidWidth + 'px'
@@ -82,7 +83,7 @@ function loadVideo(num) {
             + '<video tabindex="-1" class="myVideo" id="myVideo' + num + '" '
             + 'data-no-fullscreen="true" '
             + 'controlslist="nodownload" loop controls '
-            + 'src="https://drive.google.com/uc?export=adownlod&id=' + listIdVideo[num] + '" '
+            + 'src="https://drive.google.com/uc?export=adownlod&id=' + listIdVideo[num] + '"> '
             + '</video> '
             + '</div> '
             + '</div> '

@@ -4,7 +4,7 @@ function scrollFinished() {
     //play video
     if (runningVideo < vid.length && runningVideo >= 0) {
         vidTop = vid[runningVideo].offsetTop
-        window.scrollTo(0, vidTop - 80 - scrHeight * 0.07);
+        window.scrollTo(0, vidTop - 80 - scrHeight * 0.05);
 
         vid[runningVideo].currentTime = 0;
         vid[runningVideo].play()
