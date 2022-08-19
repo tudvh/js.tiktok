@@ -9,23 +9,23 @@ function scrollFinished() {
 
         vid[runningVideo].currentTime = 0
         vid[runningVideo].play()
-
     }
-
-    //show the currently playing video and the total video to the console
-    console.clear()
-    console.log('running: ' + (runningVideo + 1))
-    console.log('total: ' + vid.length)
 
     setTimeout(function () {
         scrooling = false
 
         //load new video
         if (runningVideo > vid.length - 5) {
+            console.log('aa: ' + (vid.length - 5))
             for (let i = vid.length; i <= runningVideo + videoWaiting; i++) {
                 loadVideo(i)
             }
         }
+
+        //show the currently playing video and the total video to the console
+        console.clear()
+        console.log('running: ' + (runningVideo))
+        console.log('total: ' + vid.length)
     }, 500)
 }
 
