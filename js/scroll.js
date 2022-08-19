@@ -23,7 +23,7 @@ function scrollFinished() {
         }
 
         //show the currently playing video and the total video to the console
-        console.clear()
+        // console.clear()
         console.log('running: ' + (runningVideo))
         console.log('total: ' + vid.length)
     }, 500)

@@ -10,7 +10,7 @@ xml.onreadystatechange = function () {
         }
     }
 }
-url = 'file/index.txt';
+url = 'file.txt'
 xml.open("GET", url, "false");
 xml.send();
 
@@ -33,6 +33,9 @@ window.onload = function () {
     }
 
     scrollFinished()
+
+    //scroll to 0
+    window.scrollTo(0, 1)
 
     //ads
     ads = document.getElementsByTagName('div')
@@ -76,7 +79,7 @@ function loadVideo(num) {
         let newVid = document.createElement('video')
         newVid.setAttribute('tabindex', '-1')
         newVid.setAttribute('class', 'myVideo')
-        newVid.setAttribute('id', 'myVideo'+num)
+        newVid.setAttribute('id', 'myVideo' + num)
         newVid.setAttribute('controlslist', 'nodownload')
         newVid.setAttribute('loop', 'true')
         newVid.setAttribute('controls', 'true')
